@@ -1,0 +1,10 @@
+ <switch>
+    <Route path="/Parking" component={Login} />
+    <Route path="/Admin/dashboard" component={Dashboardhome} />
+    <Route path="/Admin/Resgister" component={RegisterAdmin} />
+    <Route path="/Admin/Reservation" component={ReservationAdmin} />
+    <Route path="/User/dashboard" component={DashboardUser} />
+    <Route path="/User/Resgister" component={RegisterUser} />
+    <Route path="/User/Reservation" component={ReservationUser} />
+
+    </switch>

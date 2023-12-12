@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    height: 100%;
+        margin: 0;
+        padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/***
+    The new CSS reset - version 1.8.5 (last updated 14.6.2023)
+    GitHub page: https://github.com/elad2412/the-new-css-reset
+***/
+
+/*
+    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+    - The "symbol *" part is to solve Firefox SVG sprite bug
+    - The "html" attribute is exclud, because otherwise a bug in Chrome breaks the CSS hyphens property (https://github.com/elad2412/the-new-css-reset/issues/36)
+ */
+*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
+    all: unset;
+    display: revert;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a, button {
+    cursor: revert;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol, ul, menu {
+    list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img {
+    max-inline-size: 100%;
+    max-block-size: 100%;
+}
+
+/* removes spacing between cells in tables */
+table {
+    border-collapse: collapse;
+}
+
+/* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+input, textarea {
+    -webkit-user-select: auto;
+}
+
+/* revert the 'white-space' property for textarea elements on Safari */
+textarea {
+    white-space: revert;
+}
+
+/* minimum style to allow to style meter element */
+meter {
+    -webkit-appearance: revert;
+    appearance: revert;
+}
+
+/* preformatted text - use only for this feature */
+:where(pre) {
+    all: revert;
+}
+
+/* reset default text opacity of input placeholder */
+::placeholder {
+    color: unset;
+}
+
+/* remove default dot (•) sign */
+::marker {
+    content: initial;
+}
+
+/* fix the feature of 'hidden' attribute.
+   display:revert; revert to element instead of attribute */
+:where([hidden]) {
+    display: none;
+}
+
+/* revert for bug in Chromium browsers
+   - fix for the content editable attribute will work properly.
+   - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element */
+:where([contenteditable]:not([contenteditable="false"])) {
+    -moz-user-modify: read-write;
+    -webkit-user-modify: read-write;
+    overflow-wrap: break-word;
+    -webkit-line-break: after-white-space;
+    -webkit-user-select: auto;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable="true"]) {
+    -webkit-user-drag: element;
+}
+
+/* Revert Modal native behavior */
+:where(dialog:modal) {
+    all: revert;
+}
+
+
+*{
+  font-family: 'Poppins', sans-serif;
+ }
+
+
+body{
+    background-color: #F4F4F8;
+    overflow-x: hidden
+}   
+
+.title {
+      @apply text-darkBlue font-semibold ;
+}
+
+
+.login{
+    background-image: url('./Imagenes/Login.jpg');
+}
+
+
+/* Estilo general del scroll */
+::-webkit-scrollbar {
+    width: 8px; /* Ancho del scroll */
+  }
+  
+  /* Estilo del "mango" del scroll (thumb) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color del "mango" del scroll */
+    border-radius: 4px; /* Radio de borde para hacerlo redondeado */
+  }
+  
+  /* Estilo de la pista del scroll (track) */
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color de la pista del scroll */
+  }
+  
+  /* Estilo del "mango" del scroll cuando se pasa el mouse sobre él */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #2A2C41; /* Color del "mango" al pasar el mouse sobre él */
+  }
+  
+  /* Estilo de la pista del scroll cuando se pasa el mouse sobre ella */
+  ::-webkit-scrollbar-track:hover {
+    background-color: #ddd; /* Color de la pista al pasar el mouse sobre ella */
+  }
+  
+  /* Estilo del "mango" del scroll cuando está activo (haciendo clic y arrastrando) */
+  ::-webkit-scrollbar-thumb:active {
+    background-color: #2A2C41; /* Color del "mango" cuando está activo */
+  }
+  

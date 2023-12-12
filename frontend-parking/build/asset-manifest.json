@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Parking/static/css/main.2d3fcc29.css",
+    "main.js": "/Parking/static/js/main.f77443b9.js",
+    "static/js/787.6a3ba285.chunk.js": "/Parking/static/js/787.6a3ba285.chunk.js",
+    "static/media/testProfile1.jpg": "/Parking/static/media/testProfile1.c787b183709b330c7f5e.jpg",
+    "static/media/testProfile.jpg": "/Parking/static/media/testProfile.7f03e4dc72bdc8137789.jpg",
+    "static/media/Login.jpg": "/Parking/static/media/Login.90a45e4eabe2bf7e1e09.jpg",
+    "static/media/testVehicle.jpg": "/Parking/static/media/testVehicle.516c8f43b9f006c7fdad.jpg",
+    "static/media/Reserva.png": "/Parking/static/media/Reserva.31fecfe4c23db72d4859.png",
+    "index.html": "/Parking/index.html",
+    "main.2d3fcc29.css.map": "/Parking/static/css/main.2d3fcc29.css.map",
+    "main.f77443b9.js.map": "/Parking/static/js/main.f77443b9.js.map",
+    "787.6a3ba285.chunk.js.map": "/Parking/static/js/787.6a3ba285.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2d3fcc29.css",
+    "static/js/main.f77443b9.js"
+  ]
+}
