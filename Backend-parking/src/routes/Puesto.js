@@ -12,4 +12,8 @@ router.route("/:nPuesto")
     .get(puestoCtrl.getOnePuesto)
     .delete(puestoCtrl.deletePuesto)
 
+    
+      
+
+
 export default router;

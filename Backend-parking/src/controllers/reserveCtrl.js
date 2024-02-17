@@ -17,9 +17,11 @@ reserveCtrl.newReserve = async (req,res)=>{
         vehiclePlate
         })
     console.log(newReserve)
-    await newReserve.save();
-    res.send("Guardado")
-
+    let newsave = await newReserve.save();
+    res.status(200).json({
+      message: "Guardado exitosamente",
+      objectId: newsave._id,
+    });
   } catch (error) {
     res.status(500).send("algo esta mal")
   }  

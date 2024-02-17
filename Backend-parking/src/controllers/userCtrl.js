@@ -18,10 +18,14 @@ userCtrl.newUser = async (req, res) => {
       password: passwordHashed,
       role,
     });
-    await newUser.save();
-    res.send("Guardado");
+    let newUsersave = await newUser.save();
+    console.log(newUsersave._id + "hola")
+    res.status(200).json({
+      message: "Guardado exitosamente",
+      objectId: newUsersave._id,
+    });
   } catch {
-    res.send("error al crear usuario");
+    res.status(500).send("error al crear usuario");
   }
 };
 
@@ -34,13 +38,14 @@ userCtrl.updateUser = async (req, res) => {
 
   await User.findByIdAndUpdate(req.params.id, { name, password: passwordHashed });
 
-  res.send("updated");
+  res.status(200).send("updated");
 };
 
 userCtrl.deleteUser = async (req, res) => {
   const { idUser } = req.body;
-  await User.findOneAndDelete({ idUser: req.params.idUser });
-  res.send("deleted");
+  console.log(req.params.id)
+  await User.findOneAndDelete(req.params.id);
+  res.status(200).send("deleted");
 };
 
 userCtrl.getOneUser = async (req, res) => {

@@ -6,7 +6,7 @@ const puestoCtrl = {}
 
 puestoCtrl.getPuestos = async(req,res) => {
     const Puestos = await Puesto.find();
-    res.json(Puestos)
+    res.status(200).json(Puestos)
 }
 
 puestoCtrl.newPuesto = async (req,res)=>{
@@ -17,7 +17,7 @@ puestoCtrl.newPuesto = async (req,res)=>{
     })
     console.log()
     await newPuesto.save();
-    res.send("Guardado")
+    res.status(200).send("Guardado")
 
     
 }
@@ -48,6 +48,8 @@ puestoCtrl.deletePuesto = async (req,res)=>{
 
 
 }
+
+
 
 puestoCtrl.getOnePuesto = async (req, res) => {
     const Puestoget = await Puesto.findOne({nPuesto: req.params.nPuesto})

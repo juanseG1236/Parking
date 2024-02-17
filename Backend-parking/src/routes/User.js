@@ -7,10 +7,11 @@ const router = Router();
 router.route("/")
     .get(userCtrl.getUsers)
     .post(userCtrl.newUser)
-    .delete(userCtrl.deleteUser)
 
 router.route("/:id")
     .put(userCtrl.updateUser)
+    .delete(userCtrl.deleteUser)
+
 
 
 

@@ -15,12 +15,12 @@ export const userExtractor = (req, res, next) => {
         return res.status(402).json({ message: "Token is not valid" });
       }
       req.user = user;
-
+      console.log(user)
       next();
     });
   } catch (error) {
 
-    return res.status(500).json({ message: error.message });
+    return res.status(600).json({ message: error.message });
   }
 };
 

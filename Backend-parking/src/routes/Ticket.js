@@ -10,7 +10,7 @@ router.route("/Exit").post(ticketCtrl.updateTicket );
 
 
 router.route("/")
-    .get(userExtractor ,ticketCtrl.getTickets)
+    .get(ticketCtrl.getTickets)
     .post(ticketCtrl.newTicket)
 
 router.route("/:idTicket")
