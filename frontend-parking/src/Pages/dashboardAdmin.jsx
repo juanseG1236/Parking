@@ -11,9 +11,8 @@ import { useTickets } from "../context/ticketContext";
 import newvehicle from "../Componentes/newvehicle";
 import NewVehicle from "../Componentes/newvehicle";
 import ModUser from "../Componentes/modUser";
-import { useRoute } from "wouter";
-import { navigate } from "wouter/use-location";
 import { useReserves } from "../context/reserveContext";
+import { Link, useLocation } from "react-router-dom"; // Cambiado a react-router-dom
 
 export default function Dashboardhome() {
   const isMobile = useMediaQuery("(max-width: 800px)");
@@ -23,8 +22,12 @@ export default function Dashboardhome() {
   const { ticket, ticketData } = useTickets();
 
   const [renderContent, setRenderContent] = useState(false);
+  const location = useLocation();
 
+  const userType = location.pathname.split("/")[1];
   useEffect(() => {
+    console.log("Ruta completa:", window.location.href);
+
     const allData = async () => {
       if (!user || !vehicle || !ticket) {
         await userData();
@@ -82,13 +85,20 @@ export default function Dashboardhome() {
         {isMobile ? (
           <div className="w-full flex  justify-between">
             <div className=" w-[32%]">
-              <Buttons text="Añadir vehículo" />
+              <Buttons
+                text="Añadir vehículo"
+                onClick={togglePopup("Vehicle")}
+              />{" "}
             </div>
             <div className=" w-[32%]">
-              <Buttons text="Modificar información" />
-            </div>
+            <Buttons
+                  text="Modificar información"
+                  onClick={togglePopup("User")}
+                />            </div>
             <div className=" w-[32%]">
-              <Buttons text="Hacer una reserva" />
+              <Link to={`/${userType}/Reservation`}>
+                <Buttons text="Hacer una reserva" />
+              </Link>
             </div>
           </div>
         ) : (
@@ -99,7 +109,7 @@ export default function Dashboardhome() {
             <ProfileDashboard {...user} />
           </div>
           <div className="w-[48%] max-sm:w-full max-sm:mb-8">
-          <VehicleDashboard {...(vehicle || { noData: 'no data' })} />
+            <VehicleDashboard {...(vehicle || { noData: "no data" })} />
           </div>
         </div>
         <div className="flex justify-between w-full h-1/2">
@@ -173,13 +183,10 @@ export default function Dashboardhome() {
                   onClick={togglePopup("User")}
                 />
               </div>
-              <div
-                className=" h-[30%]"
-                onClick={() => {
-                  navigate("reservation");
-                }}
-              >
-                <Buttons text="Hacer una reserva" />
+              <div className=" h-[30%]">
+                <Link to={`/${userType}/Reservation`}>
+                  <Buttons text="Hacer una reserva" />
+                </Link>
               </div>
             </div>
           )}

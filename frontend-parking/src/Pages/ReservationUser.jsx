@@ -4,13 +4,19 @@ import NewReserveUser from "../Componentes/newReserveUser";
 import { useReserves } from "../context/reserveContext";
 import { useVehicles } from "../context/vehicleContext";
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom"; // Cambiado a react-router-dom
+
 
 export default function ReservationUser() {
   const [renderContent, setRenderContent] = useState(false);
   const { vehicle, vehicleData } = useVehicles();
   const { reserve, reserveData } = useReserves();
+  const location = useLocation();
 
   useEffect(() => {
+
+    console.log("Ruta completa:", window.location.href);
+
     const getData = async () => {
       if (!reserve) {
         await reserveData();
@@ -18,7 +24,7 @@ export default function ReservationUser() {
 
         setRenderContent(true); // Habilitar el renderizado una vez que tengamos los datos.
       }else{
-        setRenderContent(false); // Habilitar el renderizado una vez que tengamos los datos.
+        setRenderContent(true); // Habilitar el renderizado una vez que tengamos los datos.
       }
     };
 
@@ -27,7 +33,6 @@ export default function ReservationUser() {
 
   if (!renderContent) {
     // No renderizar nada si aún no tenemos los datos.
-
     return null;
   }
   return (

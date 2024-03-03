@@ -10,7 +10,7 @@ export default function Login() {
   const [location] = useLocation();
 
   // Verifica si la ubicación actual contiene "/Parking/Admin"
-  const isAdmin = location.includes("/Parking/Admin");
+  const isAdmin = location.includes("/Admin");
 
   // Define un estado local para los datos del usuario
   const [userData, setUserData] = useState({
@@ -33,7 +33,7 @@ export default function Login() {
     try {
       // Realiza una solicitud POST al endpoint de creación de usuarios en tu backend
       const response = await axios.post(
-        "http://localhost:4000/api/User",
+        "http://192.168.50.186:4000/api/User",
         userData
       );
 
@@ -111,7 +111,7 @@ export default function Login() {
             </form>
             <p className="mt-5">
               ya tienes una cuenta? &nbsp;
-              <a className="text-yellow tex underline" href="/Parking/Login">
+              <a className="text-yellow tex underline" href="/Login">
                 incio de sesion
               </a>
             </p>

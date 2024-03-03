@@ -6,14 +6,14 @@ export const getReservesRequest = async () =>{
     'authorization': `${sessionStorage.getItem("token")}`,
   };
   
-   return await axios.get('http://localhost:4000/api/Reserve', { headers })
+   return await axios.get('http://192.168.50.186:4000/api/Reserve', { headers })
   }
 export const createReserveRequest = async (Reserve) =>{
   const  headers = {
     'authorization': `${sessionStorage.getItem("token")}`,
   };
 
-   return await axios.post('http://localhost:4000/api/Reserve', Reserve , { headers })
+   return await axios.post('http://192.168.50.186:4000/api/Reserve', Reserve , { headers })
   }
 
 
@@ -27,6 +27,6 @@ export const getReserveRequest = async () =>{
     'authorization': `${sessionStorage.getItem("token")}`,
   };
   
-   return await axios.get('http://localhost:4000/api/Reserve/Find', { headers })
+   return await axios.get('http://192.168.50.186:4000/api/Reserve/Find', { headers })
   }
 

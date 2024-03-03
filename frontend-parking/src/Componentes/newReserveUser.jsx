@@ -1,9 +1,11 @@
 import Buttons from "./Buttons";
 import { useState } from "react";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import dayjs from "dayjs";
+
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import InputSelect from "./InputSelect";
 import { useVehicles } from "../context/vehicleContext";
 import { useReserves } from "../context/reserveContext";
@@ -96,6 +98,7 @@ export default function NewReserveUser({ vehicles }) {
             <DateTimePicker
               fieldName = "date"
               value={reserveData.date}
+              defaultValue={dayjs('2022-04-17T15:30')}
               onChange={(newValue) => setReserveData(prevState => ({
                 ...prevState,
                 date: newValue,

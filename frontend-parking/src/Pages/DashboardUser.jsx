@@ -12,6 +12,7 @@ import { useUsers } from "../context/usercontext";
 import ModUser from "../Componentes/modUser";
 import { navigate } from "wouter/use-location";
 import { useReserves } from "../context/reserveContext";
+import { Link, useLocation } from "react-router-dom"; // Cambiado a react-router-dom
 
 export default function DashboardUser() {
   const isMobile = useMediaQuery("(max-width: 800px)");
@@ -19,10 +20,11 @@ export default function DashboardUser() {
   const { ticket, ticketsData } = useTickets();
   const { reserve, reservesData } = useReserves();
   const [arrayTicket, setArrayTicket] = useState([]);
-  const [arrayReserve , setArrayReserve ] = useState([])
-
+  const [arrayReserve, setArrayReserve] = useState([]);
+  const location = useLocation();
 
   const [renderContent, setRenderContent] = useState(false);
+  const userType = location.pathname.split("/")[1];
 
   useEffect(() => {
     const allData = async () => {
@@ -31,7 +33,6 @@ export default function DashboardUser() {
         await ticketsData();
         await reservesData();
 
-
         setRenderContent(true); // Habilitar el renderizado una vez que tengamos los datos.
       }
 
@@ -39,20 +40,18 @@ export default function DashboardUser() {
     };
 
     allData();
-  }, [user, userData, ticket ]);
+  }, [user, userData, ticket]);
 
   useEffect(() => {
     const convertir = async () => {
       if (ticket && reserve) {
         setArrayTicket(Object.values(ticket));
         setArrayReserve(Object.values(reserve));
-        console.log(arrayTicket)
-        
+        console.log(arrayTicket);
       }
     };
 
     convertir();
-
   }, [ticket, reserve]);
 
   //Logic PopUps
@@ -97,23 +96,20 @@ export default function DashboardUser() {
         {isMobile ? (
           <div className="w-full flex  justify-between">
             <div className=" w-[32%]">
-              <Buttons text="Modificar información" />
-            </div>
-            <div className=" w-[32%]">
               <Buttons
-                text="crear ticket salida"
-                onClick={() => {
-                  navigate("TicketExit");
-                }}
+                text="Modificar información"
+                onClick={togglePopup("User")}
               />
             </div>
             <div className=" w-[32%]">
-              <Buttons
-                text="crear ticket enrtrada"
-                onClick={() => {
-                  navigate("TicketEntry");
-                }}
-              />
+              <Link to={`/${userType}/TicketExit`}>
+                <Buttons text="crear ticket salida" />
+              </Link>
+            </div>
+            <div className=" w-[32%]">
+              <Link to={`/${userType}/TicketEntry`}>
+                <Buttons text="crear ticket enrtrada" />
+              </Link>{" "}
             </div>
           </div>
         ) : (
@@ -137,20 +133,14 @@ export default function DashboardUser() {
                 />{" "}
               </div>
               <div className=" h-[30%]">
-                <Buttons
-                  text="crear ticket enrtrada"
-                  onClick={() => {
-                    navigate("TicketEntry");
-                  }}
-                />
+                <Link to={`/${userType}/TicketEntry`}>
+                  <Buttons text="crear ticket enrtrada" />
+                </Link>
               </div>
               <div className=" h-[30%]">
-                <Buttons
-                  text="crear ticket salida"
-                  onClick={() => {
-                    navigate("TicketExit");
-                  }}
-                />
+                <Link to={`/${userType}/TicketExit`}>
+                  <Buttons text="crear ticket salida" />
+                </Link>
               </div>
             </div>
           )}
@@ -158,8 +148,7 @@ export default function DashboardUser() {
         <div className="flex justify-between h-1/2 max-sm:h-auto max-sm:flex-col">
           <div className="w-[48%] h-full max-sm:w-full max-sm:mb-14">
             <h1 className="title">Proximas Reservas</h1>
-            {arrayReserve.length > 0  ? (
-
+            {arrayReserve.length > 0 ? (
               <List
                 type={"Reserve"}
                 dataList={["Placa", "Hora entrada"]}
@@ -167,13 +156,12 @@ export default function DashboardUser() {
                 isTiny
               />
             ) : (
-          
               <p>no data</p>
             )}
           </div>
           <div className="w-[48%] h-full max-sm:w-full max-sm:mb-7">
             <h1 className="title">ultimos tickets</h1>
-            {arrayTicket.length > 0  ? (
+            {arrayTicket.length > 0 ? (
               <List
                 type={"Ticket"}
                 dataList={["Placa", "Hora entrada"]}

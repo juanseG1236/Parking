@@ -1,12 +1,14 @@
+import React from "react";
 import Logo from "./Logo";
 import { IoExitOutline } from "react-icons/io5";
-import { Link, useLocation } from "wouter";
+import { Link, useLocation } from "react-router-dom"; // Cambiado a react-router-dom
 import { useMediaQuery } from "@react-hook/media-query";
 
-export default function Navbar() {
+const Navbar = () => {
   const isMobile = useMediaQuery("(max-width: 800px)");
-  const [location] = useLocation();
-  const user = location.startsWith("/User"); // Verifica si la ruta comienza con "/User"
+  const location = useLocation();
+  const user = location.pathname.startsWith("/User"); // Verifica si la ruta comienza con "/User"
+
 
   return (
     <>
@@ -15,7 +17,7 @@ export default function Navbar() {
           <div className="flex flex-row h-12 w-screen justify-between bg-darkBlue">
             <div className="h-full basis-40 bg-darkBlue">
               <div className="h-full w-full flex">
-                <Link href="/Parking">
+                <Link to="/">
                   <a className="w-full h-full">
                     <Logo />
                   </a>
@@ -30,9 +32,8 @@ export default function Navbar() {
           <div className="flex justify-center items-center">
             <ul className="flex flex-row items-center w-full  justify-evenly h-16">
               <li>
-                <Link href={`/${user ? "User" : "Admin"}/Dashboard`}>
+                <Link to={`/${user ? "User" : "Admin"}/Dashboard`}>
                   <a
-                    href="h"
                     className="pt-1 relative font-bold text-xl  group"
                   >
                     Dashboard
@@ -41,9 +42,8 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link href={`/${user ? "User" : "Admin"}/Reservation`}>
+                <Link to={`/${user ? "User" : "Admin"}/Reservation`}>
                   <a
-                    href="h"
                     className="pt-1 relative font-bold text-xl group"
                   >
                     Reserva
@@ -52,7 +52,7 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link href={`/${user ? "User" : "Admin"}/Resgister`}>
+                <Link to={`/${user ? "User" : "Admin"}/Register`}>
                   <a className="pt-1 relative font-bold text-xl group">
                     Registro
                     <span className="bg-yellow absolute -top-3 left-0 w-full h-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
@@ -67,7 +67,7 @@ export default function Navbar() {
           <div className="flex flex-row h-16 w-screen justify-between">
             <div className="h-full basis-40 bg-darkBlue">
               <div className="h-full w-full flex">
-                <Link href="/">
+                <Link to="/">
                   <a className="w-full h-full">
                     <Logo />
                   </a>
@@ -77,9 +77,8 @@ export default function Navbar() {
             <div className="flex justify-center items-center">
               <ul className="flex flex-row items-center gap-32 h-full">
                 <li>
-                  <Link href={`/${user ? "User" : "Admin"}/Dashboard`}>
+                  <Link to={`/${user ? "User" : "Admin"}/Dashboard`}>
                     <a
-                      href="h"
                       className="pt-1 relative font-bold text-2xl group"
                     >
                       Dashboard
@@ -88,9 +87,8 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <Link href={`/${user ? "User" : "Admin"}/Reservation`}>
+                  <Link to={`/${user ? "User" : "Admin"}/Reservation`}>
                     <a
-                      href="h"
                       className="pt-1 relative font-bold text-2xl group"
                     >
                       Reserva
@@ -99,9 +97,10 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <Link href={`/${user ? "User" : "Admin"}/Resgister`}>
+                  <Link to={`/${user ? "User" : "Admin"}/Register`}>
                     <a className="pt-1 relative font-bold text-2xl group">
-                      Registro
+                    Registro
+
                       <span className="bg-yellow absolute -top-3 left-0 w-full h-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
                     </a>
                   </Link>
@@ -109,11 +108,10 @@ export default function Navbar() {
               </ul>
             </div>
             <div className="bg-yellow basis-12 flex justify-center items-center">
-            <Link href="/Parking">
-            <a className="w-full h-full">
-
-              <IoExitOutline className="h-full w-9/12" />
-              </a>
+              <Link to="/">
+                <a className="w-full h-full">
+                  <IoExitOutline className="h-full w-9/12" />
+                </a>
               </Link>
             </div>
           </div>
@@ -121,4 +119,6 @@ export default function Navbar() {
       )}
     </>
   );
-}
+};
+
+export default Navbar;

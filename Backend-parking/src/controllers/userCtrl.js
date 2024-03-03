@@ -65,7 +65,7 @@ userCtrl.validateUser = async (req, res) => {
     if (validate) {
       const token = await userget.createToken();
       res.set("authorization", token);
-
+      console.log("inicio de sesion")
       return res.status(200).json({
         token,
         role: userget.role,

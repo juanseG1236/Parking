@@ -6,7 +6,7 @@ export const createVehicleRequest = async (Vehicle) =>{
     'authorization': `${sessionStorage.getItem("token")}`,
   };
   alert(sessionStorage.getItem("token"))
-   return await axios.post('http://localhost:4000/api/Vehicles', Vehicle , { headers })
+   return await axios.post('http://192.168.50.186:4000/api/Vehicles', Vehicle , { headers })
   }
 
 
@@ -20,7 +20,7 @@ export const getVehicleRequest = async () =>{
     'authorization': `${sessionStorage.getItem("token")}`,
   };
   
-   return await axios.get('http://localhost:4000/api/Vehicles/Find', { headers })
+   return await axios.get('http://192.168.50.186:4000/api/Vehicles/Find', { headers })
   }
 
 
@@ -29,7 +29,7 @@ export const getVehicleRequest = async () =>{
       'authorization': `${sessionStorage.getItem("token")}`,
     };
     
-     return await axios.get('http://localhost:4000/api/Vehicles', { headers })
+     return await axios.get('http://192.168.50.186:4000/api/Vehicles', { headers })
     }
 
   

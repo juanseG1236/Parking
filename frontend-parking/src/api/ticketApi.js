@@ -5,7 +5,7 @@ export const getTicketsRequest = async (p) => {
     authorization: `${sessionStorage.getItem("token")}`,
   };
 
-  return await axios.get("http://localhost:4000/api/Ticket", { headers });
+  return await axios.get("http://192.168.50.186:4000/api/Ticket", { headers });
 };
 
 export const getTicketExitRequest = async (ticket) => {
@@ -13,7 +13,7 @@ export const getTicketExitRequest = async (ticket) => {
     authorization: `${sessionStorage.getItem("token")}`,
   };
 
-  return await axios.post("http://localhost:4000/api/Ticket/Exit", ticket, {
+  return await axios.post("http://192.168.50.186:4000/api/Ticket/Exit", ticket, {
     headers,
   });
 };
@@ -22,7 +22,7 @@ export const createticketRequest = async (ticket) => {
   const headers = {
     authorization: `${sessionStorage.getItem("token")}`,
   };
-  return await axios.post("http://localhost:4000/api/Ticket/", ticket, {
+  return await axios.post("http://192.168.50.186:4000/api/Ticket/", ticket, {
     headers,
   });
 };
@@ -39,11 +39,11 @@ export const getTicketRequest = async (p) => {
   };
 
   if (p) {
-    return await axios.get("http://localhost:4000/api/Ticket/Find", {
+    return await axios.get("http://192.168.50.186:4000/api/Ticket/Find", {
       headers,
     });
   } else {
-    return await axios.get("http://localhost:4000/api/Ticket/FindP", {
+    return await axios.get("http://192.168.50.186:4000/api/Ticket/FindP", {
       headers,
     });
   }
