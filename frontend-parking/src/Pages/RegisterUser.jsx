@@ -8,13 +8,16 @@ import Navbar from "../Componentes/Navbar";
 import InputText from "../Componentes/InputText";
 import Buttons from "../Componentes/Buttons";
 
+
 export default function RegisterUser() {
   const { ticket, ticketData } = useTickets();
   const { vehicle, vehicleData } = useVehicles();
   const [renderContent, setRenderContent] = useState(false);
   const [arrayTicket, setArrayTicket] = useState();
   const location = useLocation();
+  
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     console.log("Ruta completa:", location.pathname);

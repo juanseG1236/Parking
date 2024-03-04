@@ -5,15 +5,14 @@ import InputTextLogin from "../Componentes/InputTextLogin";
 import Logo from "../Componentes/Logo";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom"; // Cambiado a react-router-dom
+import apiURL from '../config.js';
 
 export default function Login() {
   // Obtén la función de navegación de React Router
   const navigate = useNavigate();
   const location = useLocation();
   console.log("Ruta completa:", window.location.href);
-
-
-
+console.log("env", process.env.REACT_APP_BACKEND_API_URL)
   // Define un estado local para los datos del usuario
   const [userData, setUserData] = useState({
     user: "",
@@ -29,11 +28,11 @@ export default function Login() {
   // Maneja el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("enviado maestro de la llama")
+    console.log("enviado maestro de la llama");
     try {
       // Realiza una solicitud POST al endpoint de inicio de sesión en tu backend
       const response = await axios.post(
-        "http://192.168.50.186:4000/api/User/Validate",
+        `${apiURL}/api/User/Validate`,
         userData
       );
 

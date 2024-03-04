@@ -5,6 +5,7 @@ import Buttons from "../Componentes/Buttons";
 import { useEffect, useState } from "react";
 import { useTickets } from "../context/ticketContext";
 
+
 export default function RegisterAdmin() {
   const { ticket, ticketsData } = useTickets();
   const [renderContent, setRenderContent] = useState(false);

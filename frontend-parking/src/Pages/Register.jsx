@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { navigate } from "wouter/use-location";
 import axios from "axios";
 import { useLocation } from "wouter";
+import apiURL from '../config.js';
+
 
 export default function Login() {
   const [location] = useLocation();
@@ -33,7 +35,7 @@ export default function Login() {
     try {
       // Realiza una solicitud POST al endpoint de creación de usuarios en tu backend
       const response = await axios.post(
-        "http://192.168.50.186:4000/api/User",
+        `${apiURL}/api/User`,
         userData
       );
 

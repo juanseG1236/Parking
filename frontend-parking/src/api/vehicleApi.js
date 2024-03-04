@@ -1,35 +1,26 @@
 import axios from "axios";
+import apiURL from '../config.js';
 
+const headers = {
+  'authorization': `${sessionStorage.getItem("token")}`,
+};
 
-export const createVehicleRequest = async (Vehicle) =>{
-  const  headers = {
-    'authorization': `${sessionStorage.getItem("token")}`,
-  };
-  alert(sessionStorage.getItem("token"))
-   return await axios.post('http://192.168.50.186:4000/api/Vehicles', Vehicle , { headers })
-  }
+export const createVehicleRequest = async (Vehicle) => {
+  return await axios.post(`${apiURL}/api/Vehicles`, Vehicle, { headers });
+};
 
+export const updateVehicleRequest = async (Vehicle) => {
+  return await axios.put(`${apiURL}/api/Vehicle/${Vehicle._id}`, Vehicle);
+};
 
-export const updateVehicleRequest = async (Vehicle) =>
-  axios.put(`/api/Vehicle/${Vehicle._id}`, Vehicle);
+export const deleteVehicleRequest = async (id) => {
+  return await axios.delete(`${apiURL}/api/Vehicle/${id}`);
+};
 
-export const deleteVehicleRequest = async (id) => axios.delete(`/api/Vehicle/${id}`);
+export const getVehicleRequest = async () => {
+  return await axios.get(`${apiURL}/api/Vehicles/Find`, { headers });
+};
 
-export const getVehicleRequest = async () =>{
-  const  headers = {
-    'authorization': `${sessionStorage.getItem("token")}`,
-  };
-  
-   return await axios.get('http://192.168.50.186:4000/api/Vehicles/Find', { headers })
-  }
-
-
-  export const getVehiclesRequest = async () =>{
-    const  headers = {
-      'authorization': `${sessionStorage.getItem("token")}`,
-    };
-    
-     return await axios.get('http://192.168.50.186:4000/api/Vehicles', { headers })
-    }
-
-  
+export const getVehiclesRequest = async () => {
+  return await axios.get(`${apiURL}/api/Vehicles`, { headers });
+};
