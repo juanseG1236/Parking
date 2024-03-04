@@ -2,11 +2,15 @@ import express from "express";
 import { set } from "mongoose";
 import cors from "cors";
 import mongoose from "mongoose"
+import dotenv from "dotenv";
+
+dotenv.config();
+
 
 const app = express();
 
 //Settings
-app.set('port', 4000)
+app.set('port', process.env.PORT || 4000);
 
 //Middleware
 const corsOptions = {
@@ -37,9 +41,7 @@ const options = {
   pass: "sebastian01",
 };
 
-const url =
-  "mongodb+srv://juanse:sebastian01@cluster0.cewkanx.mongodb.net/Parking?retryWrites=true&w=majority";
-
+const url =process.env.MONGODB_URI;
 mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

@@ -133,3 +133,5 @@ dist
 # Build files
 build/
 dist/
+
+.env
