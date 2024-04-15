@@ -15,7 +15,17 @@ afterAll((done) => {
   server.close(done);
 });
 
-describe('hay datos en la base de puestos', () => {
+describe('creacion y consulta de puestos', () => {
+  
+  
+  test('should respond with a 200 status code', async () => {
+    const response = await request(app).post('/api/Puesto').send({
+      "nPuesto": "39",
+      "available": "true"
+  });
+    expect(response.statusCode).toBe(200);
+  }, 30000); // Aumentar el tiempo de espera a 30 segundos
+
   test('should respond with a 200 status code', async () => {
     const response = await request(app).get('/api/Puesto').send();
     expect(response.statusCode).toBe(200);
@@ -27,12 +37,3 @@ describe('hay datos en la base de puestos', () => {
 });  
 
 
-// describe('Se pueda crear un puesto', () => {
-//   test('should respond with a 200 status code', async () => {
-//     const response = await request(app).post('/api/Puesto').send({
-//       "nPuesto": "31",
-//       "available": "true"
-//   });
-//     expect(response.statusCode).toBe(200);
-//   }, 30000); // Aumentar el tiempo de espera a 30 segundos
-// });  

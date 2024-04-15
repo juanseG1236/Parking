@@ -57,5 +57,4 @@ puestoCtrl.getOnePuesto = async (req, res) => {
 }
 
 
-
 export default puestoCtrl

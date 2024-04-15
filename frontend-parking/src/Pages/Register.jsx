@@ -40,14 +40,15 @@ export default function Login() {
       );
 
       // Si la creación del usuario es exitosa, muestra una respuesta o realiza alguna acción necesaria
-      alert("Usuario creado con éxito: " + response.data);
+      alert("Usuario creado con éxito: ");
 
       // También puedes redirigir al usuario o realizar otras acciones aquí
     } catch (error) {
       // Maneja cualquier error que ocurra durante la solicitud
-      alert("Error al crear el usuario");
+      console.log(error)
+      alert("Error al crear el usuario:  " + error.response.data);
 
-      // También puedes mostrar un mensaje de error al usuario si es necesario
+      // También puedes mostrar un mensaje de error al usuario si es necesarioff
     }
   };
 

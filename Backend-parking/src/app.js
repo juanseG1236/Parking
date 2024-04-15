@@ -1,47 +1,39 @@
 import express from "express";
-import { set } from "mongoose";
 import cors from "cors";
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 
+// Configuración de variables de entorno
 dotenv.config();
 
-
+// Crear instancia de la aplicación Express
 const app = express();
 
-//Settings
+// Configuración del puerto
 app.set('port', process.env.PORT || 4000);
 
-//Middleware
+// Middlewares
 const corsOptions = {
   exposedHeaders: ['Authorization'],
-
-  };
-  
+};
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Rutas
+import userRoutes from './routes/User.js';
+import vehiclesRoutes from './routes/Vehicles.js';
+import puestoRoutes from './routes/Puesto.js';
+import ticketRoutes from './routes/Ticket.js';
+import reserveRoutes from './routes/Reserve.js';
 
-//Routes
+app.use('/api/User', userRoutes);
+app.use('/api/Vehicles', vehiclesRoutes);
+app.use('/api/puesto', puestoRoutes);
+app.use('/api/Ticket', ticketRoutes);
+app.use('/api/Reserve', reserveRoutes);
 
-app.use('/api/User',(await import('./routes/User.js')).default);
-app.use('/api/Vehicles',(await import('./routes/Vehicles.js')).default);
-app.use('/api/puesto',(await import('./routes/Puesto.js')).default);
-app.use('/api/Ticket',(await import('./routes/Ticket.js')).default);
-app.use('/api/Reserve',(await import('./routes/Reserve.js')).default);
-
-////database
-
-
-const options = {
-  db: { native_parser: true },
-  server: { poolSize: 5 },
-  replset: { rs_name: "myReplicaSetName" },
-  user: "juanse",
-  pass: "sebastian01",
-};
-
-const url =process.env.MONGODB_URI;
+// Conexión a la base de datos
+const url = process.env.MONGODB_URI;
 mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -49,11 +41,10 @@ mongoose.connect(url, {
 
 const db = mongoose.connection;
 
-db.on("error", console.error.bind(console, "Error de conexion"));
+db.on("error", console.error.bind(console, "Error de conexión"));
 
 db.once("open", () => {
-  console.log("Conexion exitosa");
 });
 
-
+// Exportar la aplicación
 export default app;

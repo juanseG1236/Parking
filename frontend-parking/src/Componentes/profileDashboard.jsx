@@ -8,7 +8,7 @@ export default function ProfileDashboard({ user, name, _id }) {
         <SettingsIcon/>
         <div className="flex grow justify-evenly items-center ">
             <div className="flex basis-1/3">
-              <ImgCircle pathI="testProfile1.jpg" />
+              <ImgCircle pathI="profile.png" />
             </div>
             <div className="flex flex-col w-1/2 h-full pt-[13%] max-sm:pt-1">
               <h1 className="text-xl font-semibold">{name}</h1>

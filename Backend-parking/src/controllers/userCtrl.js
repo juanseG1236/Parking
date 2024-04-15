@@ -1,4 +1,6 @@
 import User from "../models/userMd.js";
+import { MongoServerError } from 'mongodb';
+
 
 const userCtrl = {};
 
@@ -24,8 +26,19 @@ userCtrl.newUser = async (req, res) => {
       message: "Guardado exitosamente",
       objectId: newUsersave._id,
     });
-  } catch {
-    res.status(500).send("error al crear usuario");
+  } catch (error) {
+    console.log(error);
+  if (error instanceof MongoServerError && error.code === 11000) {
+
+    res.status(500).send("usuario repetido" );
+
+  }else if(error.errors && error.errors.user && error.errors.user.kind === 'minlength') {
+    res.status(501).send("el usuario no cumple con las validaciones");
+
+  }else{
+    res.status(500).send("Error al crear usuario" );
+
+  }
   }
 };
 

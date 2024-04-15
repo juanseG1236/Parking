@@ -4,13 +4,12 @@ import Ticket from "../models/ticketMd.js";
 import user from "../models/userMd.js";
 import vehicle from "../models/vehicleMd.js";
 import puestoCtrl from "./puestoCtrl.js";
+import { format } from "date-fns";
 
 const ticketCtrl = {};
 
-
-
 ticketCtrl.newTicket = async (req, res) => {
-  const { plate, tariff , type , color } = req.body;
+  let { plate, tariff, type, color } = req.body;
 
   try {
     // Buscar id del vehículo por placa
@@ -18,22 +17,28 @@ ticketCtrl.newTicket = async (req, res) => {
 
     if (!vehicleObj) {
       // Si no encuentra el vehículo, créalo
-      const newVehicle = new vehicle({ plate , color , type });
+      const newVehicle = new vehicle({ plate, color, type });
       vehicleObj = await newVehicle.save();
-      console.log(vehicleObj)
+      console.log(vehicleObj);
     }
-    console.log("paso1")
+    console.log("paso1");
 
     // Buscar todos los puestos
     const puestos = await Puesto.find();
-console.log("paso 2")
+    console.log("paso 2");
     // Encontrar un puesto disponible (por ejemplo, un puesto que no esté ocupado)
-    const availablePuesto = puestos.find((puesto) => puesto.available);
-    console.log(availablePuesto)
+    const availablePuesto = await puestos.find((puesto) => puesto.available);
     if (!availablePuesto) {
       return res.status(400).send("No hay puestos disponibles.");
     }
 
+    console.log(availablePuesto);
+
+    if (vehicleObj.type === "automovil") {
+      tariff = 8000; // Precio para automóvil
+    } else if (vehicleObj.type === "motocicleta") {
+      tariff = 4000; // Precio para moto
+    }
     const newTicket = new Ticket({
       timeEntry: new Date(),
       idPuesto: availablePuesto._id,
@@ -41,19 +46,20 @@ console.log("paso 2")
       tariff,
     });
 
-    console.log(newTicket)
+    console.log(newTicket.timeEntry);
     // Marcar el puesto como ocupado
     availablePuesto.available = false;
     await availablePuesto.save();
 
-    console.log(availablePuesto)
+    console.log(availablePuesto);
 
     await newTicket.save();
-    res.status(200).send(newTicket);
+    newTicket.idPuesto = availablePuesto.nPuesto;
 
+    res.status(200).send(newTicket);
   } catch (error) {
-    console.log('hubo un error')
-    console.log(error)
+    console.log("hubo un error");
+    console.log(error);
     console.error(error);
     res.status(500).send("Error en el servidor");
   }
@@ -61,19 +67,19 @@ console.log("paso 2")
 
 ticketCtrl.updateTicket = async (req, res) => {
   try {
-    console.log("recibido")
+    console.log("recibido");
     const { idTicket } = req.body;
 
-    console.log(idTicket)
+    console.log(idTicket);
     // Buscar el ticket por su ID
-    const ticket = await Ticket.findById(idTicket)
-    .populate("idVehicle");
+    const ticket = await Ticket.findById(idTicket).populate("idVehicle");
 
-    console.log(ticket + "este es")
+    console.log(ticket + "este es");
     if (!ticket) {
       // Si el ticket no se encuentra, devolver un código de estado 404 (No encontrado)
-      console.log("Ticket no encontrado")
-      return res.status(500).json({ message: "Ticket no encontrado" });    }
+      console.log("Ticket no encontrado");
+      return res.status(500).json({ message: "Ticket no encontrado" });
+    }
     const infoTicket = await ticket.exit();
     console.log(ticket._id + "   este");
 
@@ -93,9 +99,10 @@ ticketCtrl.updateTicket = async (req, res) => {
 
     //busueda denueva para hacer el populate
     const ticketUpdated = await Ticket.findOne({
-      _id: idTicket    }).populate("idPuesto");
+      _id: idTicket,
+    }).populate("idPuesto");
 
-    console.log(ticketUpdated)
+    console.log(ticketUpdated);
 
     // Devolver la diferencia en horas como respuesta
     res.status(200).json({ ticketUpdated });
@@ -121,24 +128,27 @@ ticketCtrl.getOneTicket = async (req, res) => {
 ticketCtrl.getOneTicketUser = async (req, res) => {
   try {
     console.log("estamos en ticket");
-  console.log(req.user);
-  var { _id } = await vehicle.findOne({ userIdUser: req.user });
-  console.log(_id);
-  const Ticketget = await Ticket.find({ idVehicle: _id });
-  console.log(Ticketget);
-  res.json(Ticketget);
+    console.log(req.user);
+    var { _id } = await vehicle.findOne({ userIdUser: req.user });
+    console.log(_id);
+    const Ticketget = await Ticket.find({ idVehicle: _id });
+    console.log(Ticketget);
+    res.json(Ticketget);
   } catch (error) {
-    res.status(404).send("no hay ningun ticket")
-
+    res.status(404).send("no hay ningun ticket");
   }
-  
 };
 
 ticketCtrl.getTickets = async (req, res) => {
-  const Tickets = await Ticket.find().populate({
-    path: "idVehicle",
-    select: "plate",
-  });
+  const Tickets = await Ticket.find()
+    .populate({
+      path: "idVehicle",
+      select: "plate",
+    })
+    .populate({
+      path: "idPuesto",
+      select: "nPuesto",
+    });
   res.json(Tickets);
 };
 
@@ -146,19 +156,33 @@ ticketCtrl.getOneTicketUserPopulate = async (req, res) => {
   try {
     var { _id } = await vehicle.findOne({ userIdUser: req.user });
 
-  console.log(_id);
-  const Ticketget = await Ticket.find({ idVehicle: _id }).populate({
-    path: "idVehicle",
-    select: "plate",
-  });
-  console.log(Ticketget);
-  res.status(200).json(Ticketget);
+    console.log(_id);
+    const Ticketget = await Ticket.find({ idVehicle: _id })
+      .populate({
+        path: "idVehicle",
+        select: "plate",
+      })
+      .populate({
+        path: "idPuesto",
+        select: "nPuesto",
+      });
+
+    const formattedTickets = Ticketget.map((ticket) => ({
+      timeEntry: ticket.timeEntry,
+      idPuesto: ticket.idPuesto.nPuesto,
+      idVehicle: ticket.idVehicle,
+      tariff: ticket.tariff,
+      price: ticket.price,
+      timeExit: ticket.timeExit,
+    }));
+
+    console.log(formattedTickets);
+    console.log(Ticketget);
+
+    res.status(200).json(formattedTickets);
   } catch (error) {
-    res.status(404).send("no hay ningun ticket")
+    res.status(404).send("no hay ningun ticket");
   }
-  
 };
-
-
 
 export default ticketCtrl;

@@ -13,28 +13,24 @@ afterAll((done) => {
   server.close(done);
 });
 let authToken;
-describe("Pruebas con token", () => {
-  test("Inicio de sesión y obtención de token", async () => {
-    // Supongamos que tienes una ruta para iniciar sesión que devuelve un token
-    const loginResponse = await request(app).post("/api/User/Validate").send({
-      user: "juanse",
-      password: "juanse",
-    });
 
-    expect(loginResponse.statusCode).toBe(200);
-    expect(loginResponse.body).toHaveProperty("token");
-    // Almacena el token para usarlo en otras pruebas
-    authToken = loginResponse.body.token;
-  });
-
-
-});
   ///////////////////////////////////
   //Creacion y moficacion de vehiculo
   //////////////////////////////////
   let newobjectId;
 
   describe("Creacion y moficacion de la reserva", () => {
+    test("Inicio de sesión y obtención de token", async () => {
+      const loginResponse = await request(app).post("/api/User/Validate").send({
+        user: "juanse",
+        password: "juanse",
+      });
+  
+      expect(loginResponse.statusCode).toBe(200);
+      expect(loginResponse.body).toHaveProperty("token");
+      authToken = loginResponse.body.token;
+    });
+   
     test("Debe crear la reserva", async () => {
       console.log(authToken);
 
