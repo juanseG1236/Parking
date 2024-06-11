@@ -1,11 +1,10 @@
 import axios from "axios";
 import apiURL from '../config.js';
 
-const headers = {
-  'authorization': `${sessionStorage.getItem("token")}`,
-};
-
 export const createVehicleRequest = async (Vehicle) => {
+  const headers = {
+    'authorization': `${sessionStorage.getItem("token")}`,
+  };
   return await axios.post(`${apiURL}/api/Vehicles`, Vehicle, { headers });
 };
 
@@ -18,9 +17,15 @@ export const deleteVehicleRequest = async (id) => {
 };
 
 export const getVehicleRequest = async () => {
+  const headers = {
+    'authorization': `${sessionStorage.getItem("token")}`,
+  };
   return await axios.get(`${apiURL}/api/Vehicles/Find`, { headers });
 };
 
 export const getVehiclesRequest = async () => {
+  const headers = {
+    'authorization': `${sessionStorage.getItem("token")}`,
+  };
   return await axios.get(`${apiURL}/api/Vehicles`, { headers });
 };

@@ -38,7 +38,6 @@ console.log("env", process.env.REACT_APP_BACKEND_API_URL)
 
       const token = response.headers["authorization"];
       sessionStorage.setItem("token", token);
-
       // Obtén el rol de la respuesta
       let res = response.data;
       let role = res.role;

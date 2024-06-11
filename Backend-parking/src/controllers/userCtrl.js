@@ -64,6 +64,7 @@ userCtrl.deleteUser = async (req, res) => {
 userCtrl.getOneUser = async (req, res) => {
   const userget = await User.findById(req.user);
   res.json(userget);
+  console.log("se envio")
 };
 
 userCtrl.validateUser = async (req, res) => {

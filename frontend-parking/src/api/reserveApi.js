@@ -1,15 +1,17 @@
 import axios from "axios";
 import apiURL from '../config.js';
 
-const headers = {
-  'authorization': `${sessionStorage.getItem("token")}`,
-};
-
 export const getReservesRequest = async () => {
+  const headers = {
+    'authorization': `${sessionStorage.getItem("token")}`,
+  };
   return await axios.get(`${apiURL}/api/Reserve`, { headers });
 }
 
 export const createReserveRequest = async (Reserve) => {
+  const headers = {
+    'authorization': `${sessionStorage.getItem("token")}`,
+  };
   return await axios.post(`${apiURL}/api/Reserve`, Reserve, { headers });
 }
 
@@ -22,5 +24,8 @@ export const deleteReserveRequest = async (id) => {
 }
 
 export const getReserveRequest = async () => {
+  const headers = {
+    'authorization': `${sessionStorage.getItem("token")}`,
+  };
   return await axios.get(`${apiURL}/api/Reserve/Find`, { headers });
 }

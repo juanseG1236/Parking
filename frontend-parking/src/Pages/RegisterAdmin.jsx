@@ -32,9 +32,11 @@ useEffect(() => {
   };
 
   convertir();
+
 }, [ticket]);
 
 
+console.log(arrayTicket)
 
 
   

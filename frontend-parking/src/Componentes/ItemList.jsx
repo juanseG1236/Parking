@@ -12,7 +12,7 @@ export default function ItemList({ Data }) {
       <div className="basis-[20%] text-center max-sm:text-[0.4rem]">{Data.timeEntry}</div>
       <div className="basis-[20%] text-center max-sm:text-[0.4rem]">{Data.timeExit}</div>
       <div className="basis-[20%] text-center max-sm:text-[0.4rem]">{Data.price}</div>
-      <div className="basis-[20%] text-center max-sm:text-[0.4rem]">{Data.idPuesto}</div>
+      <div className="basis-[20%] text-center max-sm:text-[0.4rem]">{Data.idPuesto.nPuesto}</div>
     </div>
   );
 }
